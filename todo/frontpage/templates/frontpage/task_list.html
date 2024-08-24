@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Tasks - TODO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #a2c2e6, #e0f7fa); /* Gradient background */
+            padding: 20px;
+            text-align: center;
+            margin: 0;
+        }
+        h1 {
+            font-size: 2.8em; /* Larger font size for emphasis */
+            color: #333; /* Darker color for readability */
+            margin-bottom: 30px; /* Increased margin for spacing */
+        }
+        .task-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .task-list li {
+            font-size: 1.2em;
+            padding: 15px;
+            background-color: #ffffff;
+            margin: 10px 0; /* Increased margin for separation */
+            border-radius: 8px; /* More rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            display: flex; /* Flexbox for alignment */
+            justify-content: space-between; /* Space out content */
+            align-items: center;
+        }
+        .task-list a {
+            text-decoration: none;
+            color: #ff6f61; /* Updated color for links */
+            font-weight: bold;
+            margin: 0 10px; /* Margin for spacing between links */
+        }
+        .task-list a:hover {
+            color: #e64a19; /* Darker shade on hover */
+        }
+        .add-task-button {
+            font-size: 1.2em;
+            padding: 12px 25px;
+            background-color: #ff6f61; /* Updated button color */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block; /* Ensure it doesn't stretch to full width */
+            transition: background-color 0.3s, transform 0.3s; /* Smooth transition effects */
+        }
+        .add-task-button:hover {
+            background-color: #e64a19; /* Darker shade on hover */
+            transform: scale(1.05); /* Slight scaling effect */
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Task List</h1>
+    <ul class="task-list">
+        {% for task in tasks %}
+            <li>
+                <span>{{ task.title }} - {{ task.status }}</span>
+                <span>
+                    <a href="{% url 'update_task' task.id %}">Edit</a>
+                    <a href="{% url 'delete_task' task.id %}">Delete</a>
+                </span>
+            </li>
+        {% empty %}
+            <li>No tasks available</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'add_task' %}" class="add-task-button">Add New Task</a>
+</body>
+</html>
